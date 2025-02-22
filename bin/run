@@ -1,0 +1,10 @@
+#!/bin/sh -eu
+
+script_file=$(find . -type f -name "*.rb" | fzf)
+[[ -z "$script_file" ]] && return 1
+
+docker run -it --rm \
+  -e HOME=/usr/src/app \
+  -v $(pwd):/usr/src/app \
+  -w /usr/src/app \
+  ruby:3.2 ruby "$script_file"
